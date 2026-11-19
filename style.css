@@ -91,11 +91,19 @@
 .skill-tile summary:focus-visible {outline-offset:-4px}
 .skill-drawing {display:block;width:100%;aspect-ratio:1;background-image:url("assets/skills/illustrations.jpg");background-size:300% 300%;background-position:var(--x) var(--y);border-radius:7px}
 .tile-title,.paper-panel h4 {font:550 clamp(20px,1.65vw,27px)/1.12 var(--display);letter-spacing:-.025em}
-.skill-reading {padding:15px 17px 20px;border-top:1px solid #dedfce}
-.skill-reading blockquote {margin:12px 0;padding-left:12px;border-left:2px solid #9dac77;color:#53613f;font:italic 17px/1.45 var(--display)}
+.skill-tile[open] {border-color:#b9c3a1}
+.skill-reading {padding:19px clamp(14px,1.5vw,22px) 16px;border-top:1px solid #e2e3d3}
+.skill-reading>p {line-height:1.65;color:#374035}
+.skill-reading mark {color:#35421d;background:linear-gradient(transparent 42%,#e6edbb 42%);font-weight:620;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.skill-excerpt {margin:16px 0;padding:12px 15px 14px;border:0;border-left:3px solid #b19b59;border-radius:0 8px 8px 0;background:#f7f1e1}
+.skill-excerpt figcaption {display:block;margin:0 0 5px;padding:0;border:0;color:#706039;font:650 12px/1.4 var(--sans);letter-spacing:.03em}
+.skill-excerpt blockquote {margin:0;color:#443e2d;font:italic 18px/1.45 var(--display)}
+.skill-links {display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 12px;border-top:1px solid #e3e5d8;padding-top:12px}
 .skill-file,.paper-panel code {font:13px/1.5 ui-monospace,Menlo,monospace;color:#516529;overflow-wrap:anywhere}
-.skill-file {display:block;text-underline-offset:3px}
-.skill-reading .text-link {display:inline-block;margin-top:10px}
+.skill-file {display:inline-flex;align-items:center;gap:7px;max-width:100%;text-decoration:none}
+.skill-file::before {content:"";width:10px;height:13px;border:1.4px solid currentColor;border-radius:2px;flex:none;background:linear-gradient(currentColor,currentColor) 2px 4px/5px 1px no-repeat,linear-gradient(currentColor,currentColor) 2px 7px/4px 1px no-repeat}
+.skill-file:hover {text-decoration:underline;text-underline-offset:3px}
+.skill-links .text-link {font-size:13px}
 .skill-source {margin-top:15px}
 .paper-cases {margin-top:clamp(36px,5vw,65px)}
 .case-heading {display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:17px;flex-wrap:wrap}
