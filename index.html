@@ -10,8 +10,8 @@
   <meta property="og:description" content="An autonomous post-training system for skill-guided fine-tuning. Explore the method, watch the video, and compare results.">
   <meta property="og:image" content="https://aweai-team.github.io/AutoMaster-site/assets/automaster.jpg">
   <link rel="icon" type="image/png" href="assets/favicon.png">
-  <link rel="stylesheet" href="style.css">
-  <script src="site.js" defer></script>
+  <link rel="stylesheet" href="style.css?v=score-slopes">
+  <script src="site.js?v=score-slopes" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -51,7 +51,16 @@
 </section>
 <section class="results band" id="results"><div class="wrap section">
   <div class="section-heading"><div><p class="kicker">Results</p><h2>Gains across three domains</h2></div><p>AutoMaster improves mean performance by <strong>1.42–8.99 percentage points</strong> over Vanilla SFT across six benchmark–model settings.</p></div>
-  <div class="plot" hidden><div class="plot-head"><div class="key"><span><i></i>Vanilla SFT</span><span><i></i>AutoMaster</span></div><fieldset><legend class="sr">Student size</legend><label><input type="radio" name="size" value="4B">4B</label><label><input type="radio" name="size" value="9B" checked>9B</label></fieldset></div><div id="scores" aria-live="polite"></div></div>
+  <div class="plot" hidden>
+    <div class="plot-head">
+      <div class="key"><span><i></i>Vanilla SFT</span><span><i></i>AutoMaster</span></div>
+      <div class="plot-controls">
+        <button type="button" id="replay">Replay</button>
+        <fieldset><legend class="sr">Student size</legend><label><input type="radio" name="size" value="4B">4B</label><label><input type="radio" name="size" value="9B" checked>9B</label></fieldset>
+      </div>
+    </div>
+    <div id="scores" aria-live="polite"></div>
+  </div>
   <details id="all-scores" open><summary>Full scores and standard deviations</summary><div class="table-wrap"><table><caption>Mean ± SD (%) across three evaluation runs per checkpoint. Gains are in percentage points.</caption><thead><tr><th scope="col">Benchmark</th><th scope="col">Qwen3.5</th><th scope="col">Base</th><th scope="col">Vanilla SFT</th><th scope="col">AutoMaster</th><th scope="col">Gain</th></tr></thead><tbody>
 <tr><th scope="row">Terminal-Bench 2.1</th><td>4B</td><td>15.73 ± 2.25</td><td>22.47 ± 1.12</td><td>28.09 ± 2.25</td><td>+5.62</td></tr>
 <tr><th scope="row">Terminal-Bench 2.1</th><td>9B</td><td>25.47 ± 2.59</td><td>26.59 ± 1.30</td><td>35.58 ± 1.30</td><td>+8.99</td></tr>

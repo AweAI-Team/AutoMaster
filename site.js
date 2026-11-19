@@ -2,38 +2,67 @@ const scoreTable = document.querySelector('#all-scores');
 const plot = document.querySelector('.plot');
 const chart = document.querySelector('#scores');
 
-function showScores(size) {
-  const rows = [...scoreTable.querySelectorAll('tbody tr')].filter(row => row.cells[1].textContent === size);
-  chart.replaceChildren();
-  for (const row of rows) {
-    const [name, , , vanilla, auto, gain] = [...row.cells].map(cell => cell.textContent);
-    const panel = document.createElement('article');
-    const title = document.createElement('h3');
-    title.textContent = name;
-    panel.append(title);
-    for (const [index, entry] of [vanilla, auto].entries()) {
-      const score = parseFloat(entry);
-      const track = document.createElement('div');
-      track.className = 'track';
-      track.setAttribute('aria-label', (index ? 'AutoMaster ' : 'Vanilla SFT ') + score + '%');
-      const bar = document.createElement('i');
-      bar.style.width = score + '%';
-      const label = document.createElement('b');
-      label.textContent = score.toFixed(2);
-      track.append(bar, label);
-      panel.append(track);
+// All panels share a 20–60% scale, including when switching model sizes.
+function scaleY(score) {
+  return 157 - (score - 20) * 3;
+}
+
+function scorePanel(row, index) {
+  const [name, size, , vanilla, auto, gain] = [...row.cells].map(cell => cell.textContent);
+  const start = parseFloat(vanilla);
+  const end = parseFloat(auto);
+  const startY = scaleY(start);
+  const endY = scaleY(end);
+  const gradient = 'gain-fill-' + index;
+  const panel = document.createElement('article');
+  const grid = [20, 30, 40, 50, 60].map(tick => {
+    const y = scaleY(tick);
+    return `<path d="M30 ${y}H290"/><text x="24" y="${y + 4}">${tick}</text>`;
+  }).join('');
+  panel.innerHTML = `
+    <h3>${name}</h3>
+    <p class="difference">${gain}<small> pp</small></p>
+    <svg viewBox="0 0 300 189" role="img" aria-label="${size} ${name}: Vanilla SFT ${start.toFixed(2)}%, AutoMaster ${end.toFixed(2)}%, gain ${gain} percentage points.">
+      <defs><linearGradient id="${gradient}" x2="0" y2="1" gradientUnits="objectBoundingBox">
+        <stop stop-color="#8ba765" stop-opacity=".24"/><stop offset="1" stop-color="#8ba765" stop-opacity=".015"/>
+      </linearGradient></defs>
+      <g class="score-grid">${grid}</g>
+      <text class="unit" x="4" y="17">%</text>
+      <path class="gain-area" fill="url(#${gradient})" d="M58 ${startY}L256 ${endY}V157H58Z"/>
+      <path class="gain-line" pathLength="1" d="M58 ${startY}L256 ${endY}"/>
+      <circle class="start-point" cx="58" cy="${startY}" r="5"/>
+      <text class="start-label" x="58" y="${startY - 13}">${start.toFixed(2)}</text>
+      <g class="endpoint">
+        <circle class="end-halo" cx="256" cy="${endY}" r="11"/>
+        <circle class="end-point" cx="256" cy="${endY}" r="5"/>
+        <text class="end-label" x="256" y="${endY - 16}">${end.toFixed(2)}</text>
+      </g>
+      <g class="method-label"><text x="58" y="181">Vanilla SFT</text><text x="256" y="181">AutoMaster</text></g>
+    </svg>`;
+  return panel;
+}
+
+const visibility = new IntersectionObserver(entries => {
+  for (const entry of entries) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('revealed');
+      visibility.unobserve(entry.target);
     }
-    const difference = document.createElement('p');
-    difference.className = 'difference';
-    difference.textContent = gain + ' pp';
-    panel.append(difference);
-    chart.append(panel);
   }
+}, { threshold: 0.28 });
+
+function showScores() {
+  const size = plot.querySelector(':checked').value;
+  const rows = [...scoreTable.querySelectorAll('tbody tr')].filter(row => row.cells[1].textContent === size);
+  visibility.disconnect();
+  chart.replaceChildren(...rows.map(scorePanel));
+  for (const panel of chart.children) visibility.observe(panel);
 }
 plot.hidden = false;
 scoreTable.open = false;
-showScores(document.querySelector('input[name="size"]:checked').value);
-plot.addEventListener('change', event => showScores(event.target.value));
+showScores();
+plot.addEventListener('change', showScores);
+document.querySelector('#replay').addEventListener('click', showScores);
 const copy = document.querySelector('#copy');
 copy.hidden = false;
 copy.addEventListener('click', async () => {
