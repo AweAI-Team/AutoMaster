@@ -12,7 +12,7 @@
   <meta property="og:description" content="An autonomous post-training system for skill-guided fine-tuning. Explore the method, watch the video, and compare results.">
   <meta property="og:image" content="https://aweai-team.github.io/AutoMaster/assets/automaster.jpg">
   <link rel="icon" type="image/png" href="assets/favicon.png">
-  <link rel="stylesheet" href="style.css?v=skill-library">
+  <link rel="stylesheet" href="style.css?v=skill-gallery">
   <script src="particle-title.js?v=warm-wordmark" defer></script>
   <script src="site.js?v=score-bars" defer></script>
 </head>
@@ -55,44 +55,64 @@
 </section>
 <section class="skills-section" id="skills" aria-labelledby="skills-title"><div class="wrap section">
   <div class="section-heading"><div><p class="kicker">Skills</p><h2 id="skills-title">What the teacher reads</h2></div>
-    <p>AutoMaster selects natural-language instructions for specific tasks. Explore nine skills released from research runs and see how skill guidance changed the teacher’s behavior in the paper.</p></div>
-  <details class="skill-domain" name="skill-domain" open>
-    <summary><span>Terminal tasks</span><small>Numerical accuracy and final-output checks</small></summary>
-    <div class="skill-body"><div class="skill-list">
-      <article><h3>Test a numerical claim</h3><a class="skill-file" href="https://github.com/RUCAIBox/AutoMaster/blob/1c2d5f0a7b69b997c47e7ead4c3f4b71563ab5a0/skills/tb2.1/execute-numeric-decision/SKILL.md" aria-label="Read execute-numeric-decision on GitHub">execute-numeric-decision</a>
-        <p>When a solver must satisfy an error bound, compare its output with an independent reference. Keep the failing input and the original tolerance while diagnosing the error.</p><blockquote>“Define the reference and bound before running this block.”</blockquote></article>
-      <article><h3>Check the saved result</h3><a class="skill-file" href="https://github.com/RUCAIBox/AutoMaster/blob/1c2d5f0a7b69b997c47e7ead4c3f4b71563ab5a0/skills/tb2.1/verify-consumer/SKILL.md" aria-label="Read verify-consumer on GitHub">verify-consumer</a>
-        <p>When a task delivers a file, model, or service, use the same entry point its user will use. Measure the requested property on that final output.</p><blockquote>“Exercise the finished deliverable.”</blockquote></article>
-      <article><h3>Keep exact results during optimization</h3><a class="skill-file" href="https://github.com/RUCAIBox/AutoMaster/blob/1c2d5f0a7b69b997c47e7ead4c3f4b71563ab5a0/skills/tb2.1/preserve-reference-operations/SKILL.md" aria-label="Read preserve-reference-operations on GitHub">preserve-reference-operations</a>
-        <p>When faster code must match a reference exactly, first speed up the work around sensitive operations. Check tied rankings and floating-point reductions against the reference.</p><blockquote>“Measure this conservative implementation against the required performance target.”</blockquote></article>
-    </div><aside class="skill-case"><p class="kicker">In the paper</p><h3>Verifying convergence</h3>
-      <code>execute-numeric-decision</code><p>Both solvers met the error threshold. The unguided teacher claimed fourth-order accuracy despite observing second-order convergence. The guided teacher switched to a nine-point stencil and verified fourth-order convergence on progressively finer grids.</p><a class="text-link" href="assets/paper.pdf#page=9">Read Figure 5a</a></aside></div>
-  </details>
-  <details class="skill-domain" name="skill-domain">
-    <summary><span>Web search</span><small>Evidence and candidate identification</small></summary>
-    <div class="skill-body"><div class="skill-list">
-      <article><h3>Break out of a stalled search</h3><a class="skill-file" href="https://github.com/RUCAIBox/AutoMaster/blob/1c2d5f0a7b69b997c47e7ead4c3f4b71563ab5a0/skills/bc/recover-search-anchor/SKILL.md" aria-label="Read recover-search-anchor on GitHub">recover-search-anchor</a>
-        <p>When repeated queries lead to the same weak candidate, find the guessed detail they share. Drop it and search a clue that could independently identify the target.</p><blockquote>“Drop that guessed restriction from the next discovery query.”</blockquote></article>
-      <article><h3>Check what a distance measures</h3><a class="skill-file" href="https://github.com/RUCAIBox/AutoMaster/blob/1c2d5f0a7b69b997c47e7ead4c3f4b71563ab5a0/skills/bc/measured-relations/SKILL.md" aria-label="Read measured-relations on GitHub">measured-relations</a>
-        <p>When distance could rule a candidate in or out, check the endpoints, units, and travel mode. A nearby station may explain a clue while leaving the requested walking distance unknown.</p><blockquote>“Before using a returned number, identify its two endpoints, what was measured, and its units.”</blockquote></article>
-      <article><h3>Search in the source’s own terms</h3><a class="skill-file" href="https://github.com/RUCAIBox/AutoMaster/blob/1c2d5f0a7b69b997c47e7ead4c3f4b71563ab5a0/skills/bc/source-terms/SKILL.md" aria-label="Read source-terms on GitHub">source-terms</a>
-        <p>When English summaries omit a local fact, keep one verified name or institution and search for the missing relationship in the language of the relevant record.</p><blockquote>“Preserve names, dates, and roles.”</blockquote></article>
-    </div><aside class="skill-case"><p class="kicker">In the paper</p><h3>Finding the director</h3>
-      <code>recover-search-anchor</code><p>Both searches found the same episode. The unguided teacher repeatedly guessed an award. The guided teacher used the episode credits to identify director Meera Menon, then checked the award clue.</p><a class="text-link" href="assets/paper.pdf#page=9">Read Figure 5b</a></aside></div>
-  </details>
-  <details class="skill-domain" name="skill-domain">
-    <summary><span>Repository construction</span><small>API contracts and parser behavior</small></summary>
-    <div class="skill-body"><div class="skill-list">
-      <article><h3>Find which object owns the work</h3><a class="skill-file" href="https://github.com/RUCAIBox/AutoMaster/blob/1c2d5f0a7b69b997c47e7ead4c3f4b71563ab5a0/skills/doc2repo/collaborator-contracts/SKILL.md" aria-label="Read collaborator-contracts on GitHub">collaborator-contracts</a>
-        <p>When framework objects cooperate, try the smallest real construction and activation sequence. Identify which object starts the work, handles it, and cleans up.</p><blockquote>“Determine which object owns startup, processing and cleanup.”</blockquote></article>
-      <article><h3>Exercise the public API</h3><a class="skill-file" href="https://github.com/RUCAIBox/AutoMaster/blob/1c2d5f0a7b69b997c47e7ead4c3f4b71563ab5a0/skills/doc2repo/run-observed-public-call/SKILL.md" aria-label="Read run-observed-public-call on GitHub">run-observed-public-call</a>
-        <p>When a library wraps an external service, call its real public entry point. Record the outbound request at the dependency boundary and check the value returned to the caller.</p><blockquote>“Use a fresh ledger for the call.”</blockquote></article>
-      <article><h3>Keep nested readers in sync</h3><a class="skill-file" href="https://github.com/RUCAIBox/AutoMaster/blob/1c2d5f0a7b69b997c47e7ead4c3f4b71563ab5a0/skills/doc2repo/owned-regions/SKILL.md" aria-label="Read owned-regions on GitHub">owned-regions</a>
-        <p>When a parser delegates a nested region, specify which reader consumes the closing marker. Test a nested item followed by a sibling so a misplaced cursor becomes visible.</p><blockquote>“Define whether the closing marker belongs to the child and keep that convention at every call site.”</blockquote></article>
-    </div><aside class="skill-case"><p class="kicker">In the paper</p><h3>Checking the sort order</h3>
-      <code>contract-checkpoint</code><p>A flawed self-test led the unguided teacher to reverse a global sort. With contract-checkpoint, the teacher checked the UTF-16 ordering, fixed the test input, and passed 38 of 38 tests. This skill is excerpted in Appendix B.3.</p><a class="text-link" href="assets/paper.pdf#page=9">Read Figure 5c</a></aside></div>
-  </details>
-  <p class="skill-source"><a class="text-link" href="https://github.com/RUCAIBox/AutoMaster/tree/main/skills">Browse the full skill files on GitHub</a></p>
+    <p>Explore nine skills from AutoMaster research runs. Open an illustration to read the teacher’s instructions and visit the original skill file.</p></div>
+    <div class="skill-row"><h3>Terminal tasks</h3><div class="skill-grid">
+      <details class="skill-tile">
+        <summary><span class="skill-drawing" style="--x:0%;--y:0%" aria-hidden="true"></span><span class="tile-title">Test a numerical claim</span></summary>
+        <div class="skill-reading"><p>When a solver must satisfy an error bound, compare its output with an independent reference. Keep the failing input and the original tolerance while diagnosing the error.</p><blockquote>“Define the reference and bound before running this block.”</blockquote><a class="skill-file" href="https://github.com/RUCAIBox/AutoMaster/blob/1c2d5f0a7b69b997c47e7ead4c3f4b71563ab5a0/skills/tb2.1/execute-numeric-decision/SKILL.md" aria-label="Read execute-numeric-decision on GitHub">execute-numeric-decision</a><a class="text-link" href="#paper-case-a">View paper case A</a></div>
+      </details>
+      <details class="skill-tile">
+        <summary><span class="skill-drawing" style="--x:50%;--y:0%" aria-hidden="true"></span><span class="tile-title">Check the saved result</span></summary>
+        <div class="skill-reading"><p>When a task delivers a file, model, or service, use the same entry point its user will use. Measure the requested property on that final output.</p><blockquote>“Exercise the finished deliverable.”</blockquote><a class="skill-file" href="https://github.com/RUCAIBox/AutoMaster/blob/1c2d5f0a7b69b997c47e7ead4c3f4b71563ab5a0/skills/tb2.1/verify-consumer/SKILL.md" aria-label="Read verify-consumer on GitHub">verify-consumer</a></div>
+      </details>
+      <details class="skill-tile">
+        <summary><span class="skill-drawing" style="--x:100%;--y:0%" aria-hidden="true"></span><span class="tile-title">Keep exact results during optimization</span></summary>
+        <div class="skill-reading"><p>When faster code must match a reference exactly, first speed up the work around sensitive operations. Check tied rankings and floating-point reductions against the reference.</p><blockquote>“Measure this conservative implementation against the required performance target.”</blockquote><a class="skill-file" href="https://github.com/RUCAIBox/AutoMaster/blob/1c2d5f0a7b69b997c47e7ead4c3f4b71563ab5a0/skills/tb2.1/preserve-reference-operations/SKILL.md" aria-label="Read preserve-reference-operations on GitHub">preserve-reference-operations</a></div>
+      </details>
+    </div></div>
+    <div class="skill-row"><h3>Web search</h3><div class="skill-grid">
+      <details class="skill-tile">
+        <summary><span class="skill-drawing" style="--x:0%;--y:50%" aria-hidden="true"></span><span class="tile-title">Break out of a stalled search</span></summary>
+        <div class="skill-reading"><p>When repeated queries lead to the same weak candidate, find the guessed detail they share. Drop it and search a clue that could independently identify the target.</p><blockquote>“Drop that guessed restriction from the next discovery query.”</blockquote><a class="skill-file" href="https://github.com/RUCAIBox/AutoMaster/blob/1c2d5f0a7b69b997c47e7ead4c3f4b71563ab5a0/skills/bc/recover-search-anchor/SKILL.md" aria-label="Read recover-search-anchor on GitHub">recover-search-anchor</a><a class="text-link" href="#paper-case-b">View paper case B</a></div>
+      </details>
+      <details class="skill-tile">
+        <summary><span class="skill-drawing" style="--x:50%;--y:50%" aria-hidden="true"></span><span class="tile-title">Check what a distance measures</span></summary>
+        <div class="skill-reading"><p>When distance could rule a candidate in or out, check the endpoints, units, and travel mode. A nearby station may explain a clue while leaving the requested walking distance unknown.</p><blockquote>“Before using a returned number, identify its two endpoints, what was measured, and its units.”</blockquote><a class="skill-file" href="https://github.com/RUCAIBox/AutoMaster/blob/1c2d5f0a7b69b997c47e7ead4c3f4b71563ab5a0/skills/bc/measured-relations/SKILL.md" aria-label="Read measured-relations on GitHub">measured-relations</a></div>
+      </details>
+      <details class="skill-tile">
+        <summary><span class="skill-drawing" style="--x:100%;--y:50%" aria-hidden="true"></span><span class="tile-title">Search in the source’s own terms</span></summary>
+        <div class="skill-reading"><p>When English summaries omit a local fact, keep one verified name or institution and search for the missing relationship in the language of the relevant record.</p><blockquote>“Preserve names, dates, and roles.”</blockquote><a class="skill-file" href="https://github.com/RUCAIBox/AutoMaster/blob/1c2d5f0a7b69b997c47e7ead4c3f4b71563ab5a0/skills/bc/source-terms/SKILL.md" aria-label="Read source-terms on GitHub">source-terms</a></div>
+      </details>
+    </div></div>
+    <div class="skill-row"><h3>Repository construction</h3><div class="skill-grid">
+      <details class="skill-tile">
+        <summary><span class="skill-drawing" style="--x:0%;--y:100%" aria-hidden="true"></span><span class="tile-title">Find which object owns the work</span></summary>
+        <div class="skill-reading"><p>When framework objects cooperate, try the smallest real construction and activation sequence. Identify which object starts the work, handles it, and cleans up.</p><blockquote>“Determine which object owns startup, processing and cleanup.”</blockquote><a class="skill-file" href="https://github.com/RUCAIBox/AutoMaster/blob/1c2d5f0a7b69b997c47e7ead4c3f4b71563ab5a0/skills/doc2repo/collaborator-contracts/SKILL.md" aria-label="Read collaborator-contracts on GitHub">collaborator-contracts</a></div>
+      </details>
+      <details class="skill-tile">
+        <summary><span class="skill-drawing" style="--x:50%;--y:100%" aria-hidden="true"></span><span class="tile-title">Exercise the public API</span></summary>
+        <div class="skill-reading"><p>When a library wraps an external service, call its real public entry point. Record the outbound request at the dependency boundary and check the value returned to the caller.</p><blockquote>“Use a fresh ledger for the call.”</blockquote><a class="skill-file" href="https://github.com/RUCAIBox/AutoMaster/blob/1c2d5f0a7b69b997c47e7ead4c3f4b71563ab5a0/skills/doc2repo/run-observed-public-call/SKILL.md" aria-label="Read run-observed-public-call on GitHub">run-observed-public-call</a></div>
+      </details>
+      <details class="skill-tile">
+        <summary><span class="skill-drawing" style="--x:100%;--y:100%" aria-hidden="true"></span><span class="tile-title">Keep nested readers in sync</span></summary>
+        <div class="skill-reading"><p>When a parser delegates a nested region, specify which reader consumes the closing marker. Test a nested item followed by a sibling so a misplaced cursor becomes visible.</p><blockquote>“Define whether the closing marker belongs to the child and keep that convention at every call site.”</blockquote><a class="skill-file" href="https://github.com/RUCAIBox/AutoMaster/blob/1c2d5f0a7b69b997c47e7ead4c3f4b71563ab5a0/skills/doc2repo/owned-regions/SKILL.md" aria-label="Read owned-regions on GitHub">owned-regions</a></div>
+      </details>
+    </div></div>
+  <p class="skill-source"><a class="text-link" href="https://github.com/RUCAIBox/AutoMaster/tree/main/skills">Browse all skill files on GitHub</a></p>
+  <section class="paper-cases" aria-labelledby="cases-title">
+    <div class="case-heading"><h3 id="cases-title">How the skills changed a rollout</h3><a class="text-link" href="assets/paper.pdf#page=9">Read Figure 5 in the paper</a></div>
+    <div class="paper-panels">
+      <article id="paper-case-a" class="paper-panel"><h4>Verifying convergence</h4><code>execute-numeric-decision</code>
+        <a class="case-image" href="assets/skills/figure5a.png" aria-label="Enlarge Figure 5a: Verifying convergence"><img src="assets/skills/figure5a.png" alt="Figure 5a. Verifying convergence. Both solvers met the error threshold. The unguided teacher claimed fourth-order accuracy despite observing second-order convergence. The guided teacher switched to a nine-point stencil and verified fourth-order convergence on progressively finer grids." loading="lazy" width="452" height="732"></a>
+        <details><summary>Case notes</summary><p>Both solvers met the error threshold. The unguided teacher claimed fourth-order accuracy despite observing second-order convergence. The guided teacher switched to a nine-point stencil and verified fourth-order convergence on progressively finer grids.</p><a class="text-link" href="assets/paper.pdf#page=9">Read Figure 5a</a></details></article>
+      <article id="paper-case-b" class="paper-panel"><h4>Finding the director</h4><code>recover-search-anchor</code>
+        <a class="case-image" href="assets/skills/figure5b.png" aria-label="Enlarge Figure 5b: Finding the director"><img src="assets/skills/figure5b.png" alt="Figure 5b. Finding the director. Both searches found the same episode. The unguided teacher repeatedly guessed an award. The guided teacher used the episode credits to identify director Meera Menon, then checked the award clue." loading="lazy" width="452" height="732"></a>
+        <details><summary>Case notes</summary><p>Both searches found the same episode. The unguided teacher repeatedly guessed an award. The guided teacher used the episode credits to identify director Meera Menon, then checked the award clue.</p><a class="text-link" href="assets/paper.pdf#page=9">Read Figure 5b</a></details></article>
+      <article id="paper-case-c" class="paper-panel"><h4>Checking the sort order</h4><code>contract-checkpoint</code>
+        <a class="case-image" href="assets/skills/figure5c.png" aria-label="Enlarge Figure 5c: Checking the sort order"><img src="assets/skills/figure5c.png" alt="Figure 5c. Checking the sort order. A flawed self-test led the unguided teacher to reverse a global sort. With contract-checkpoint, the teacher checked the UTF-16 ordering, fixed the test input, and passed 38 of 38 tests. This skill is excerpted in Appendix B.3." loading="lazy" width="456" height="732"></a>
+        <details><summary>Case notes</summary><p>A flawed self-test led the unguided teacher to reverse a global sort. With contract-checkpoint, the teacher checked the UTF-16 ordering, fixed the test input, and passed 38 of 38 tests. This skill is excerpted in Appendix B.3.</p><a class="text-link" href="assets/paper.pdf#page=9">Read Figure 5c</a></details></article>
+    </div>
+  </section>
 </div></section>
 <section class="results band" id="results"><div class="wrap section">
   <div class="section-heading"><div><p class="kicker">Results</p><h2>Gains across three domains</h2></div><p>AutoMaster improves mean performance by <strong>1.42–8.99 percentage points</strong> over Vanilla SFT across six benchmark–model settings.</p></div>
