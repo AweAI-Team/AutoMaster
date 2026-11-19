@@ -110,9 +110,20 @@
 .case-heading h3 {font:500 clamp(27px,3vw,42px)/1.1 var(--display);letter-spacing:-.035em}
 .paper-panel {border:1px solid #d4d9c9;border-radius:12px;background:#fffef9;padding:clamp(14px,1.7vw,24px);scroll-margin-top:85px}
 .paper-panel h4 {margin:0 0 4px}
-.case-image {display:block;margin:14px 0;background:#fff;border-radius:6px;border:1px solid #e9ebe1;padding:8px}
-.case-image img {display:block;width:100%;height:auto;max-height:345px;object-fit:contain}
+.case-image {cursor:zoom-in;display:block;margin:14px 0;background:#fff;border-radius:6px;border:1px solid #e9ebe1;padding:8px}
+.case-image img {display:block;width:100%;height:auto;object-fit:contain}
 .paper-panel details {padding:0;border:0}
 .paper-panel details p {padding-block:9px}
 @media (min-width:701px) and (max-width:920px){.skill-tile summary{grid-template-columns:1fr;align-content:start;gap:10px;min-height:170px}.skill-drawing{width:84px}.tile-title{font-size:20px}}
-@media (max-width:700px){.skill-grid,.paper-panels{grid-template-columns:1fr;gap:10px}.skill-tile summary{grid-template-columns:78px 1fr;min-height:0;padding:8px 24px 8px 8px}.tile-title{font-size:22px}.paper-panel{max-width:100%}.case-image img{max-height:400px}}
+@media (max-width:700px){.skill-grid,.paper-panels{grid-template-columns:1fr;gap:10px}.skill-tile summary{grid-template-columns:78px 1fr;min-height:0;padding:8px 24px 8px 8px}.tile-title{font-size:22px}.paper-panel{max-width:100%}}
+
+html:has(#figure-preview[open]) {overflow:hidden}
+#figure-preview {width:min(630px,calc(100% - 20px));max-width:none;max-height:92vh;max-height:92dvh;margin:auto;padding:0;color:var(--ink);background:white;border:1px solid #cbd3bf;border-radius:12px;overflow:hidden;box-shadow:0 18px 65px #17241c44}
+#figure-preview[open] {display:flex;flex-direction:column}
+#figure-preview::backdrop {background:rgb(24 32 25 / 70%)}
+.preview-toolbar {flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 14px;background:#faf9f0;border-bottom:1px solid var(--line)}
+.preview-toolbar h2 {font:600 17px/1.3 var(--sans);letter-spacing:0}
+.preview-toolbar button {cursor:pointer;min-height:42px;border:1px solid #bcc7ac;border-radius:7px;background:#fffef9;color:var(--ink);font:600 14px var(--sans);padding:0 12px}
+.preview-toolbar button span {margin-left:4px;font-size:18px}
+.preview-image {min-height:0;overflow:auto;overscroll-behavior:contain;padding:8px}
+.preview-image img {display:block;width:100%;height:auto}

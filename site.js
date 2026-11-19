@@ -74,3 +74,32 @@ copy.addEventListener('click', async () => {
     status.textContent = 'Text selected for copying';
   }
 });
+
+const preview = document.querySelector('#figure-preview');
+if (typeof preview.showModal === 'function') {
+  const previewImage = preview.querySelector('img');
+  const previewTitle = preview.querySelector('h2');
+  let opener;
+  for (const link of document.querySelectorAll('.case-image')) {
+    link.setAttribute('aria-haspopup', 'dialog');
+    link.addEventListener('click', event => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      opener = link;
+      previewTitle.textContent = link.closest('.paper-panel').querySelector('h4').textContent;
+      previewImage.alt = link.querySelector('img').alt;
+      previewImage.src = link.href;
+      preview.showModal();
+      previewImage.parentElement.scrollTop = 0;
+    });
+  }
+  preview.addEventListener('click', event => {
+    if (event.target !== preview) return;
+    const bounds = preview.getBoundingClientRect();
+    if (event.clientX < bounds.left || event.clientX > bounds.right ||
+        event.clientY < bounds.top || event.clientY > bounds.bottom) {
+      preview.close();
+    }
+  });
+  preview.addEventListener('close', () => opener?.focus({preventScroll:true}));
+}
