@@ -6,7 +6,6 @@
   const canvas = stage.querySelector('canvas');
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const replay = stage.querySelector('.title-replay');
-  const toggle = document.querySelector('.motion-toggle');
   const ctx = canvas.getContext('2d');
   if (!ctx || !('IntersectionObserver' in window)) return;
 
@@ -15,7 +14,6 @@
   let elapsed = 0;
   let previous = null;
   let visible = false;
-  let paused = false;
 
   function prepare() {
     canvas.hidden = false;
@@ -35,7 +33,7 @@
     const pixels = ink.getImageData(0, 0, width, height).data;
     const step = Math.max(2, parseFloat(font.fontSize) / 31);
     const particles = [];
-    const colors = ['#21383b', '#365457', '#637746', '#829897', '#a78851'];
+    const colors = [font.color, '#5d6530', '#7a8849', '#90976a', '#ac8b42'];
     for (let y = step; y < height; y += step) {
       for (let x = step; x < width; x += step) {
         const tx = x + (Math.random() - .5) * step * .6;
@@ -113,7 +111,7 @@
     cancelAnimationFrame(frame);
     previous = null;
     const enabled = !motion.matches;
-    replay.hidden = toggle.hidden = !enabled;
+    replay.hidden = !enabled;
     if (!enabled) {
       canvas.hidden = true;
       word.style.removeProperty('opacity');
@@ -125,26 +123,17 @@
     if (!draw) {
       draw = prepare();
       if (!draw) {
-        replay.hidden = toggle.hidden = canvas.hidden = true;
+        replay.hidden = canvas.hidden = true;
         word.style.removeProperty('opacity');
         return;
       }
       draw(elapsed);
     }
-    if (!paused) frame = requestAnimationFrame(tick);
+    frame = requestAnimationFrame(tick);
   }
 
-  function setPaused(value) {
-    paused = value;
-    toggle.classList.toggle('paused', paused);
-    toggle.title = paused ? 'Resume title animation' : 'Pause title animation';
-    toggle.setAttribute('aria-label', toggle.title);
-  }
-
-  toggle.addEventListener('click', () => { setPaused(!paused); sync(); });
   replay.addEventListener('click', () => {
     elapsed = 0;
-    setPaused(false);
     sync();
   });
   new IntersectionObserver(([entry]) => {
