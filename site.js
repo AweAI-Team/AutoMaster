@@ -2,42 +2,36 @@ const scoreTable = document.querySelector('#all-scores');
 const plot = document.querySelector('.plot');
 const chart = document.querySelector('#scores');
 
-// All panels share a 20–60% scale, including when switching model sizes.
+// The zero baseline and common 0–60% scale make column heights comparable.
 function scaleY(score) {
-  return 157 - (score - 20) * 3;
+  return 165 - score * 2.2;
 }
 
-function scorePanel(row, index) {
+function scorePanel(row) {
   const [name, size, , vanilla, auto, gain] = [...row.cells].map(cell => cell.textContent);
   const start = parseFloat(vanilla);
   const end = parseFloat(auto);
-  const startY = scaleY(start);
-  const endY = scaleY(end);
-  const gradient = 'gain-fill-' + index;
   const panel = document.createElement('article');
-  const grid = [20, 30, 40, 50, 60].map(tick => {
+  const grid = [0, 20, 40, 60].map(tick => {
     const y = scaleY(tick);
     return `<path d="M30 ${y}H290"/><text x="24" y="${y + 4}">${tick}</text>`;
+  }).join('');
+  const columns = [start, end].map((score, index) => {
+    const center = index ? 207 : 94;
+    const top = scaleY(score);
+    return `<g class="series ${index ? 'guided' : 'vanilla'}">
+      <rect class="score-bar" x="${center - 28}" y="${top}" width="56" height="${165 - top}" rx="3"/>
+      <text class="bar-value" x="${center}" y="${top - 8}">${score.toFixed(2)}</text>
+      <text class="method-label" x="${center}" y="187">${index ? 'AutoMaster' : 'Vanilla SFT'}</text>
+    </g>`;
   }).join('');
   panel.innerHTML = `
     <h3>${name}</h3>
     <p class="difference">${gain}<small> pp</small></p>
-    <svg viewBox="0 0 300 189" role="img" aria-label="${size} ${name}: Vanilla SFT ${start.toFixed(2)}%, AutoMaster ${end.toFixed(2)}%, gain ${gain} percentage points.">
-      <defs><linearGradient id="${gradient}" x2="0" y2="1" gradientUnits="objectBoundingBox">
-        <stop stop-color="#8ba765" stop-opacity=".24"/><stop offset="1" stop-color="#8ba765" stop-opacity=".015"/>
-      </linearGradient></defs>
+    <svg viewBox="0 0 300 194" role="img" aria-label="${size} ${name}: Vanilla SFT ${start.toFixed(2)}%, AutoMaster ${end.toFixed(2)}%, gain ${gain} percentage points.">
       <g class="score-grid">${grid}</g>
-      <text class="unit" x="4" y="17">%</text>
-      <path class="gain-area" fill="url(#${gradient})" d="M58 ${startY}L256 ${endY}V157H58Z"/>
-      <path class="gain-line" pathLength="1" d="M58 ${startY}L256 ${endY}"/>
-      <circle class="start-point" cx="58" cy="${startY}" r="5"/>
-      <text class="start-label" x="58" y="${startY - 13}">${start.toFixed(2)}</text>
-      <g class="endpoint">
-        <circle class="end-halo" cx="256" cy="${endY}" r="11"/>
-        <circle class="end-point" cx="256" cy="${endY}" r="5"/>
-        <text class="end-label" x="256" y="${endY - 16}">${end.toFixed(2)}</text>
-      </g>
-      <g class="method-label"><text x="58" y="181">Vanilla SFT</text><text x="256" y="181">AutoMaster</text></g>
+      <text class="unit" x="4" y="16">%</text>
+      ${columns}
     </svg>`;
   return panel;
 }
