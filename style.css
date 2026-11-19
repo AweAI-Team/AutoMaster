@@ -56,3 +56,14 @@
 .title-stage {position:relative;isolation:isolate}
 .wordmark-baseline {display:inline-block;width:0;height:0}
 .title-particles {position:absolute;inset:-9px -8px;width:calc(100% + 16px);height:calc(100% + 18px);pointer-events:none}
+
+.hero .actions {flex-wrap:wrap;gap:9px}
+.hero .button {padding-inline:15px}
+.code-icon {font:700 14px/1 ui-monospace,monospace}
+.title-replay {position:absolute;inset:0;width:100%;border:0;border-radius:6px;background:transparent;cursor:pointer}
+.title-replay:focus-visible {outline-offset:2px}
+.motion-toggle {display:inline-grid;place-items:center;width:25px;height:25px;padding:0;border:1px solid #cad3bf;border-radius:50%;color:var(--olive);background:transparent;cursor:pointer}
+.motion-toggle[hidden] {display:none}
+.motion-toggle i {width:7px;height:9px;border-inline:2px solid currentColor}
+.motion-toggle.paused i {border:0;width:0;height:0;border-block:4px solid transparent;border-left:6px solid currentColor;margin-left:2px}
+@media(max-width:620px){.hero .actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-width:340px}.hero .button{padding-inline:7px}}
