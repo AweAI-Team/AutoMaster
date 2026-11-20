@@ -72,7 +72,7 @@
 .hero .actions {flex-wrap:wrap;gap:9px}
 .hero .button {padding-inline:15px}
 .button-icon {display:block;flex:none;width:18px;height:18px}
-.hero .primary .button-icon {filter:invert(1)}
+.hero .primary .button-icon {width:20px;height:20px;padding:2px;object-fit:contain;background:#fff;border-radius:3px}
 .title-replay {position:absolute;inset:0;width:100%;border:0;border-radius:6px;background:transparent;cursor:pointer}
 .title-replay:focus-visible {outline-offset:2px}
 @media(max-width:620px){.hero .actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-width:340px}.hero .button{padding-inline:7px}}
